@@ -8,7 +8,9 @@ Various materials to support the teaching of Music Information Retrieval. This m
 
 # Notebook collections 
 
-1. [Foundations of Music Processing Notebooks] (https://www.audiolabs-erlangen.de/resources/MIR/FMP/C0/C0.html)
+1. [Kadenze MIR Program notebooks] (https://github.com/gtzan/mir_program_kadenze)
+2. [Foundations of Music Processing notebooks] (https://www.audiolabs-erlangen.de/resources/MIR/FMP/C0/C0.html)
+3. [Audio content analysis notebooks] (https://github.com/alexanderlerch/pyACA)
 
 
 # Audio 
