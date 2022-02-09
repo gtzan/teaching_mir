@@ -8,7 +8,7 @@ Various materials to support the teaching of Music Information Retrieval. This m
 
 # Notebook collections 
 
-1. 
+1. [Foundations of Music Processing Notebooks] (https://www.audiolabs-erlangen.de/resources/MIR/FMP/C0/C0.html)
 
 
 # Audio 
