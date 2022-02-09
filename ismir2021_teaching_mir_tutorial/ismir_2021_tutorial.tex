@@ -1,0 +1,1209 @@
+\documentclass[12pt]{beamer}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{subfigure}
+\usepackage{bbm} 
+\usepackage{pgfpages}
+\usepackage{tikz}
+\usepackage{dcolumn}
+\usepackage{booktabs}
+\newcolumntype{M}[1]{D{.}{.}{1.#1}}
+
+\usetikzlibrary{positioning,shapes,arrows}
+
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usetheme{Air}
+
+%\pgfpagesuselayout{4 on 1}[letter,border shrink=5mm]
+%\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+%\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+%\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+%\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\title[ISMIR 2021 tutorial]{ISMIR 2021 Tutorial}
+
+
+\logo{\pgfputat{\pgfxy(-0.5,7.5)}{\pgfbox[center,base]{\includegraphics[width=1.0cm]{figures/uvic}}}}  
+\beamertemplatenavigationsymbolsempty
+
+    \defbeamertemplate{footline}{author and page number}{%
+      \usebeamercolor[fg]{page number in head/foot}%
+      \usebeamerfont{page number in head/foot}%
+      \hspace{1em}\insertshortauthor\hfill%
+      \insertpagenumber\,/\,\insertpresentationendpage\kern1em\vskip2pt%
+    }
+    \setbeamertemplate{footline}[author and page number]{}
+
+
+
+\subtitle[Teaching Music Information Retrieval]{Teaching Music Information Retrieval} 
+\date[2021]{2021}
+\author[G. Tzanetakis]{George Tzanetakis}
+\institute[University of Victoria]{University of Victoria}
+%\logo{\includegraphics[scale=.25]{unilogo.pdf}}
+
+\begin{document}
+\frame{\maketitle} % <-- generate frame with title
+
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>[allowframebreaks]{Table of Contents}
+\tableofcontents[currentsection,currentsubsection, 
+    hideothersubsections, 
+    sectionstyle=show/shaded,
+]
+\end{frame}
+}
+
+
+
+%% NOTEBOOK EXAMPLES
+%% measuring_amplitude * 
+%% monophonic pitch detection
+%% matrix factorization
+%% rhythm notation * 
+%% audiolabs-erlangen.de/resources/MIR/FMP/C3/C3_MusicSynchronization.html
+%% THX sound from Steve Toja MIR notebooks 
+%% Lyrics classification
+
+\section{Introduction} 
+
+\begin{frame}{Introduction} 
+
+Music Information Retrieval as a research field is now more than 20
+years old.  I have been involved in teaching MIR in undergraduate,
+graduate, and tutorial courses to students from a variety of
+disciplines for over 15 years. In this tutorial we will explore
+different aspects of teaching MIR and share what I have learned over
+the years about how to make the teaching of MIR topics more effective.
+
+\end{frame} 
+
+
+\begin{frame}{Tutorial Structure} 
+
+There are 6 modules each with a duration of approximately 25 minutes
+followed by 5 minutes of questions. Each unit consists of a set of
+slides and in some cases some associated hands-on demonstrations in
+the form of Jupyter/Python notebooks. The target audience is anyone
+(professor, researcher, postdoc, graduate student) who is interested
+in teaching MIR. I assume that participants are familiar with the main
+ideas and tasks of MIR.
+
+\end{frame} 
+
+\begin{frame}{Modules} 
+\begin{itemize} 
+\item Overview and organization
+\item Adapting to a target audience and format 
+\item Online learning
+\item Assessment 
+\item Projects 
+\item Resources 
+\end{itemize} 
+\end{frame}
+
+
+\begin{frame}{Relevant Background} 
+\begin{itemize}
+\item{Main focus of my research has been Music Information Retrieval (MIR)}
+\item{Involved from the early days of the field} 
+\item{Have published papers in almost every ISMIR conference}
+\item{Organized ISMIR in 2006} 
+\item{Tutorials on various MIR topics in several conferences}
+\item{Taught MIR as a 4th year CS course for 12 times}
+\item{Kadenze MIR program (3 courses) approximately 3000 participants} 
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Education and Academic Work Experience} 
+
+\begin{itemize} 
+\item{1997 BSc in Computer Science (CS), University of Crete, Greece}
+\item{1999 MA in CS, Princeton University, USA} 
+\item{2002 PhD in CS, Princeton University, USA} 
+\item{2003 PostDoc in CS, Carnegie Mellon University, USA}
+\item{2004 Assistant Professor in CS, Univ. of Victoria, Canada} 
+\item{2010 Associate Professor in CS, Univ. of Victoria, Canada}
+\item{2016 Professor in CS, Univ. of VIctoria, Canada}
+\item{2010-2020 Canada Research Chair (Tier II) in Computer Analysis of Audio and Music} 
+\item{Music theory, saxophone and piano performance, composition,
+  improvisation both in conservatory and academic settings}
+\end{itemize}
+\end{frame} 
+
+
+
+
+
+
+
+\begin{frame}{Work Experience beyond Academia}
+
+  Many internships in research labs throughout studies. Several
+  consulting jobs while in academia. A few representative examples:
+
+\begin{itemize}
+\item{Moodlogic Inc (2000). Designed and developed one of the earliest audio fingerprinting systems (patented) - 100000 users matching to 1.5 million songs}
+\item{Teligence Inc (2005). Automatic male/female voice discrimination for voice messages used in popular phone dating sites - processing of 20000+ recordings per day.}
+\item{Smule (2015-present) - various MIR related projects}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Software - Marsyas} 
+\begin{itemize}
+\item{Music Analysis, Retrieval and Synthesis for Audio Signals} 
+\item{Open source in C++ with Python Bindings} 
+\item{Started by me in 1999 - core team approximately 4-5 developers}
+\item{Approximately 400 downloads per month}
+\item{Many projects in industry and academia} 
+\item{State-of-the-art performance while frequently orders of
+  magnitude faster than other systems}
+\item{Not actively developed for the last 5-6 years}
+\end{itemize} 
+\end{frame} 
+
+\begin{frame}{Visiting Scientist at Google Research} 
+
+Six month study leave. Things I worked on (of course as part of larger teams):
+\begin{itemize} 
+\item{Cover Song Detection (applied to every uploaded YouTube video).}
+\item{Audio Fingerprinting}
+\item{Named inventor on 6 pending US patents related to audio matching and fingerprinting} 
+\end{itemize}  
+\end{frame} 
+
+
+
+
+\section{Overview - Organization}
+
+
+\begin{frame}{UVic MIR Course - Learning outcomes}
+\begin{itemize} 
+\item{Basic knowledge of DSP} 
+\item{Basic knowledge of Machine Learning (ML)} 
+\item{Basic knowledge of Music Theory} 
+\item{Familiarity with the basic tasks that have been 
+explored in MIR research and the algorithms used to solve them} 
+\item{{\bf Being able to read and understand the majority 
+of published literature in ISMIR}}
+\item{Experience with designing and developing MIR algorithms and 
+systems} 
+\end{itemize} 
+\end{frame}
+
+
+\begin{frame}{UVic MIR Course - Lectures}
+\begin{itemize} 
+\item{2 lectures 1.5 hours /week}
+\item{3 hours of associated homework expected for each lecture} 
+\item{Total weekly commitment approximately 9-10 hours} 
+\item{6 assignments each worth $10\%$ of final grade and done invididually.}
+\item{Assignments typically will combine some reading and understanding of MIR literature as well as some programming of MIR algorithms} 
+\item{1 final group project (2-3 students per group) $40\%$} 
+\end{itemize} 
+\end{frame}{}
+
+
+
+\begin{frame}{History of MIR before computers} 
+How did a listener encounter a new piece of music throughout history ? 
+\begin{itemize} 
+\item{Live performance} 
+\item{Music Notation}
+\item{Physical recording} 
+\item{Radio} 
+\end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{Brief History of computer MIR}
+\begin{itemize} 
+\item{Pre-history ($<2000$): scattered papers in various communities. Symbolic 
+processing mostly in digital libraries and information retrieval venues 
+and audio processing (less explored) mostly in acoustics and DSP venues.}
+\item{The birth $2000$: first International symposium on Music Information 
+Retrieval (ISMIR) with funding from NSF Digital Libraries II initiative 
+organized by J. Stephen Downie, Time Crawford and Don Byrd. First contact between the symbolic and the audio side.}
+\item{2000-2006} Rapid growth of ISMIR 
+\item{2006-2014} Slower growth and steady state
+\item{2015-2021} Maturation - robust industry involvement
+\end{itemize} 
+\end{frame}
+
+
+\begin{frame}{Teaching Organization}
+
+  One of the main challenges of teaching MIR is how to
+  structure/organize the material to be taught. A good organization
+  should be comprehensive (i.e cover most MIR tasks/topics),
+  incremental (concepts should be introduced gradually in a logical
+  fashion), flexible (it should be possible to emphasize or skip
+  different topics), and balanced.
+
+  In the following slides I will discuss some possible ways to
+  organize MIR for teaching purposes based on my extensive experience
+  and experimentation.
+  
+
+\end{frame} 
+
+\begin{frame}{Organize by stages/specificity} 
+\begin{itemize}
+\item{Stages}
+\begin{itemize} 
+\item{Representation/Hearing} 
+\item{Analysis/Learning}
+\item{Interaction/Action}
+\end{itemize}
+\item{Specificity} 
+\begin{itemize} 
+\item{Audio fingerprinting} 
+\item{Common score performance} 
+\item{Cover song detection} 
+\item{Artist identification} 
+\item{Genre classification} 
+\item{Recommendation ? } 
+\end{itemize} 
+\end{itemize}
+\end{frame} 
+
+\begin{frame}{Organize based on data}
+Data sources: 
+\begin{itemize} 
+\item{Audio}
+\item{Track metadata}
+\item{Score} 
+\item{Lyrics} 
+\item{Reviews} 
+\item{Ratings} 
+\item{Download patterns} 
+\item{Micro-blogging}
+\end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{MIR Tasks} 
+\begin{itemize} 
+\item{Similarity retrieval, playlists, recommendation} 
+\item{Classification and clustering} 
+\item{Tag annotation}
+\item{Rhythm, melody, chords}
+\item{Music transcription and source separation} 
+\item{Query by humming} 
+\item{Symbolic MIR} 
+ \item{Segmentation, structure, alignment} 
+\item{Watermarking, fingerprinting and cover song detection} 
+\end{itemize} 
+\end{frame} 
+
+
+
+
+
+\begin{frame}{Audio content analysis - A. Lerch}
+
+  \begin{itemize}
+  \item{Fundamentals (signals, sampling, quantization, convolution, blocking, fourier transform, correlation)}
+  \item{Instantaneous features (statistical features, spectral features, post-processing, dimensionality reduction)}
+    \item{Intensity and Loudness}
+    \item{Tonal Analysis (pitch, monophonic pitch detection, polyphonic pitch tracking, tuning estimation, key recognition, chord detection)}
+    \item{Temporal Analysis (onset detection, tempo and beat detection, downbeat, rhythm description)}
+    \item{Audio Alignment (dynamic time warping, audio/score alignment)}
+    \item{Music  Classification (genre, similarity, mood)}
+      \item{Audio Fingerprinting}
+    \end{itemize}
+\end{frame} 
+
+
+\begin{frame}{Fundamentals of Music Processing - Meinard Muller}
+  \begin{itemize}
+  \item{Music Representations}
+  \item{Fourier Analysis of Signals}
+  \item{Music Synchronization}
+  \item{Music Structure Analysis}
+  \item{Chord Recognition}
+  \item{Tempo and Beat Tracking}
+  \item{Content-based Audio Retrieval}
+  \item{Musically Informed Audio Decomposition}
+    \end{itemize}
+  \end{frame} 
+
+
+\begin{frame}{Kadenze online MIR program}
+
+\begin{itemize}
+\item{Extracting Information from Music Signals}
+\item{Machine Learning for MIR}
+\item{Music Information Rertieval Systems} 
+\end{itemize} 
+
+\end{frame}
+
+
+\begin{frame}{Extracting Information from Music Signals}
+  \begin{itemize}
+  \item{Time, frequency, and sinusoids}
+  \item{DFT and Time-Frequency Representations}
+  \item{Monophonic Pitch Detection}
+  \item{Audio Feature Extraction}
+    \item{Rhythmic Analysis} 
+    \end{itemize} 
+\end{frame}
+
+
+\begin{frame}{Machine Learning for MIR}
+
+  \begin{itemize}
+  \item{Supervised Learning and Naive Bayes Classification}
+  \item{Discriminative Classifiers}
+  \item{Genre Classification}
+  \item{Emotion Recognition and Regression}
+  \item{Tags}
+  \item{Music Visualization} 
+  \end{itemize} 
+
+  \end{frame} 
+
+\begin{frame}{Music Retrieval Systems}
+
+  \begin{itemize}
+  \item Query Retrieval 
+  \item Polyphonic Alignment and Structure Segmentation 
+  \item Chord Detection and Cover Song Identification
+  \item Transcription and Sound Source Separation
+  \item Audio Fingerprinting and Watermarking
+    \end{itemize} 
+
+\end{frame} 
+
+
+\begin{frame}{Other topics}
+  \begin{itemize}
+  \item{Optical Music Recognition (OMR)}
+  \item{Symbolic Music Retrieval}
+  \item{MIR for live music performance}
+  \item{Computer-assisted music pedagogy}
+  \item{Computational Ethnomusicology}
+  \item{MIR for music production}
+  \item{Natural language processing for MIR} 
+  \end{itemize} 
+
+\end{frame}
+
+
+\begin{frame}{Notebook break I}
+
+  An important pedagogical advice is to use multiple alternating modes
+  of delivery when teaching a concept. Notebooks combine text and
+  snippets of code structured in cells that can be executed
+  individually. Originally popularized by Mathematica, they are
+  nowdays very popular as ways of introducing concepts. For the last
+  couple of years I frequently utilize Python notebooks in my teaching
+  and throughout this tutorial I will be showing some representative
+  examples.
+\end{frame}
+
+\begin{frame}{Organization: Discussion/Questions}
+
+  Any thoughts/questions/discussion regarding the first module ``Organization'' ? (5-10 minutes) 
+  
+\end{frame}
+
+\section{Adapting to a target audience}
+
+\begin{frame}{Adaptation}
+Another challenge when teaching MIR is the diversity of the students.
+MIR is an interdisciplinary field and that can mean that the students
+can come from different disciplines and can have very different backgrounds. 
+In this module we will go over some strategies for adapting
+the material for different audiences and providing supports
+to students with different backgrounds. 
+\end{frame}
+
+
+\begin{frame}{Interdisciplinary Research}
+Inherently inter-disciplinary and cross-disciplinary work. Connecting
+theme: making computers better understand music to create more
+effective interactions with musicians and listeners. 
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize} 
+\item{Music Information Retrieval} 
+\item{Digital Signal Processing} 
+\item{Machine Learning} 
+\item{Human-Computer Interaction} 
+\item{Software Engineering} 
+\end{itemize} 
+
+\column{0.5\textwidth}
+\begin{itemize}
+\item{Artifical Intelligence}
+\item{Multimedia}
+\item{Robotics} 
+\item{Visualization}
+\item{Programming Languages} 
+\end{itemize} 
+\end{columns}
+\end{frame}
+
+\begin{frame}{EDI}
+\begin{itemize}
+\item{{\bf Equity} - everyone is treated fairly and equally}
+\item{{\bf Diversity} - value differences}
+\item{{\bf Inclusion} - everyone feels supporterd and integrated}
+\end{itemize}
+As instructors how can we support EDI? 
+\end{frame} 
+
+
+
+
+\begin{frame}{Some ideas for supporting EDI}
+  \begin{itemize}
+\item{Focus and value diversity - for example go over a list of past projects that are as diverse in terms of topic as possible }
+\item{Consent form to share student material with future offerings/students}
+\item{Highlight examples of researchers from underrepresented groups}
+\item{Encourage student participation}
+\item{Model constructive and respectful feedback}
+\item{Optional educational supports, different style deliverables}
+\item{Interdisciplinary field means everyone will be outside their comfort zone}
+\item{Peer mentorship}
+\end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{Backgrounds}
+
+  MIR students can come from many different backgrounds. Let's look
+  at some representative examples and what they might lack:
+
+  \begin{itemize}
+  \item{{\bf Computer Science:} good programming and ML skills, not as comfortable with mathematical notation and numerical stuff, no formal music knowledge}
+  \item{{\bf Electrical and Computer Engineering:} good mathematical notation
+    and numerical programming, maybe ML, not as experienced with general programming, no formal knowledge}
+    \item{{\bf Music:} little experience with programming, intimidated by mathematical notation, good knowledge of music, writing skills}
+    \end{itemize} 
+
+\end{frame}
+
+\begin{frame}{Music 101}
+
+  Some basic knowledge about music notation and theory is useful in
+  understanding a lot of MIR research.
+
+  \begin{itemize}
+  \item{Absolute and relative encoding of pitch/intervals}
+  \item{Common western music relative rhythm notation}
+  \item{Chords/Tonality/Key}
+  \item{Very briefly scales, harmony, counterpoint, instrumentation}
+   \item{Excellent tutorial ISMIR 2021: Practical Music Theory for MIR researchers}
+  \end{itemize}
+  \end{frame} 
+
+
+\begin{frame}{Programming 101-A}
+
+  The biggest challenge with teaching programming to musicians
+  is to convince them that it is not that hard. There are many
+  excellent tutorials available for any programming language/environment.
+  Some thoughts:
+
+  \begin{itemize}
+  \item{Ask the students to change the tutorial examples they are encountering to be more about music. For example instead of the finding the maximum of a list of numbers change it to finding the highest note in a melody}
+  \item{Music21 is a great environment to introduce Python programming
+    to music students as they can easily see and hear the results of symbolic music manipulations}
+  \item{Try to provide skeleton code with increasing amounts of student involvement}
+    \end{itemize} 
+  \end{frame}
+  
+\begin{frame}{Programming 101-B}
+
+  \begin{itemize} 
+  \item{Jupyter notebooks provide means of introducing interactivity and programming}
+  \item{Some music students are familiar with visual programming environments like Max/MSP. This can be leveraged to get them going with text-based programming} 
+  \end{itemize} 
+  
+\end{frame}
+
+
+\begin{frame}{Mathematics 101}
+
+  Understanding of mathematics is a long process and in many cases
+  music students or even CS students feel that it is not necessary.
+  Some thoughts:
+
+  \begin{itemize}
+    \item{Decouple notation from concepts} 
+    \item{Three views: concrete toy example, computer code, mathematical expression}
+    \item{Read papers with emphasis on writing and notation not content}
+    \item{Basic vector/matrix notation from linear algebra, probabilities/stats}
+    \item{Khan Academy}
+  \end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{Active Learning}
+
+  The term {\bf active learning} is used to describe a variety of
+  approaches that are different than the traditional lecture mode
+  of delivering courses. Active learning interventions include:
+
+  \begin{itemize}
+  \item{Group problem-solving}
+  \item{Worksheets completed in class}
+  \item{Use of polls/clickers}
+  \item{Studio/workshop course design}
+  \item{Mock conference/peer review}
+  \item{Live coding} 
+  \end{itemize} 
+\end{frame} 
+
+\begin{frame}{Class Size}
+
+  Class size can have a significant effect on how to deliver a
+  course. Smaller class sizes (<30-40 students) allow more
+  discussion/interaction and do not requireas much preparation for
+  assessment. Bigger class sizes (>40 students) pose different challenges.
+  
+  Ideas for large class sizes:
+  \begin{itemize}
+  \item{Labs can function as smaller classes}
+  \item{More scaffolding in learning materials}
+  \item{More standarized assignments}
+  \item{Organized communication in public forums with themes}
+  \item{Detailed weekly workplans}
+  \end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{Evolving over time}
+
+  It is important to constantly evolve both the content and how it is
+  delivered to reflect the rapid changes in MIR research and the surrounding
+  software context. 
+
+  \begin{itemize}
+  \item{2000 - The birth of Marsyas - self-contained code base for MIR, DSP and ML, C++ from scratch}
+    \item{2003 - Weka (and SVMs) comes to the scene for ML} 
+    \item{MIREX 2007 - Marsyas submissions (92 citations)}
+    \item{2010 - sklearn}
+    \item{2014 - librosa,mir\_eval}
+    \item{2016 - shift to notebooks for teaching}
+    \item{2018 - more and more datasets}
+    \item{2019 - Spleeter} 
+  \end{itemize} 
+\end{frame}
+
+
+\begin{frame}{Notebook break II}
+
+  Let's look at a notebook for explaining the basics of rhythm notation
+  to studens without a formal music background and another one explaining
+  matrix factorization for students without previous linear algebra skills. 
+  
+\end{frame}
+
+\begin{frame}{Adaptation: Discussion/Questions}
+
+  Any thoughts/questions/discussion regarding the second module ``Adaptation'' ? (5-10 minutes) 
+  
+\end{frame}
+
+
+
+\section{Online learning}
+
+\begin{frame}{Online learning}
+
+  Online learning has been around for a long time. Massive Open Online
+  Courses rose to prominence around 2012. Despite initial claims of
+  signalling the death of brick and mortar university teaching they
+  have simply become another mode of learning. Covid and the resulting
+  transition to online learning has resulted in a renewed interest in online
+  learning. In this module we will discuss online learning strategies
+  for effective online teaching of MIR.
+\end{frame}
+
+\begin{frame}{MOOC critiques}
+  
+In fact, the absence of serious pedagogy in MOOCs is rather striking,
+their essential feature being short, unsophisticated video chunks,
+interleaved with online quizzes, and accompanied by social
+networking. - Moshe Vardi
+
+A lot of online learners seek very specific answers to particular
+problems they encounter rather than more general learning of concepts.
+For example they might look up the syntax of Python list comprehensions
+but do not care about the more general ideas of functional programming. 
+
+\end{frame}
+
+%% 50 
+\begin{frame}{My personal favorite online learning experience}
+
+  Open Studio is an online learning resource for Jazz that I discoverd
+  and have followed regularly throughout the pandemic. It is very different
+  than a MOOC. Some observations:
+
+  \begin{itemize}
+  \item{As much as I would love to I can't find the time to properly practice}
+  \item{Regular live activities - guided practice sessions}
+  \item{Sense of community}
+  \item{Good production quality but also informal interaction}
+  \item{Feeling that everyone is part of a journey}
+  \item{Regular free social media presence to attract new members} 
+  \end{itemize} 
+\end{frame} 
+
+\begin{frame}{Categories of online learners}
+   \begin{itemize}
+   \item{Auditors - watch all videos, few quizzes/exams}
+   \item{Completers - most videos, most quizzes/exams}
+   \item{Disengaged - quickly drop the course}
+   \item{Sampling - occassionally watch specific lectures}
+  \end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{Flipped classroom}
+
+  Traditionally students are introduced to new content in class and
+  then work on assignments and projects independently at home. A flipped
+  classroom works by introducing the content at home and practice working
+  through the material at school. It is a type of blended learning.
+
+  Flipping a classroom requires providing video recording of lectures
+  as well as other support material for the students to learn concepts
+  at their own pace. Common issue is students not viewing the material.
+  In 2018 I taught MIR completely as a flipped course with 2 hours
+  of contact per week in which I answered questions, had discussions,
+  and did some tutorials. The outcome was mixed: students were much more
+  engaged and asked lots of questions but they said they would have
+  liked some more traditional lecturing. 
+\end{frame} 
+
+\begin{frame}{Recording video}
+
+Video recording is essential for online learning. Unfortunately, the
+standards for video quality and production are becomning higher and
+higher with all the content creator stuff. Some pragmatic advice:
+
+\begin{itemize}
+\item{Video recording full lectures can be useful for review but
+  does not work very well for online learning}
+\item{Either edit well or not at all}
+\item{Shorter (5-7 minutes) videos of concepts are better}
+\item{Change of camera - close up, zoom out}
+\item{Alternate talking, hand-writing, live-coding, slides}
+\item{Scripting and tele-prompting}
+\item{Repeated recording} 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Research-enriched teaching}
+
+  Research-enriched teaching is a term used to describe
+  university level teaching in which the experience of conducting research is
+  interleaved with the teaching of concepts.
+
+  \begin{itemize}
+  \item{Present papers by previous students in the course}
+  \item{Invite as guest lectures previous students}
+  \item{Invite industry researchers}
+  \item{Present industry-led papers}
+  \item{Connect to commercial products}
+  \item{Use paper templates for project reports}
+  \item{Conference style peer reviewing} 
+  \end{itemize} 
+  
+\end{frame} 
+
+\begin{frame}{Scaffolding}
+
+  Scaffolding provides multiple supports in the form of worked
+  examples, incremental increase of difficulty, live worked examples,
+  and experimentation to assist with learning of concepts. It also
+  refers to breaking a complicated concept into smaller units.
+  At the extreme it becomes hand holding or spoon feeding. 
+
+  \begin{itemize}
+  \item{Show and tell - active coding}
+  \item{Tap into prior knowledge}
+  \item{Give time to talk}
+  \item{Pre-teach vocabulary/notation}
+  \item{Pause, pause, review, pause} 
+  \end{itemize} 
+  
+  \end{frame} 
+
+\begin{frame}{Expanding audience - Initial experiment}
+
+  In the Spring of 2014 I started video recording my MIR
+  lectures (simply doing screencasting and Google Hangouts/YouTube)
+  and invited external participants to the course. Overall it was
+  a positive experience despite the low production quality with
+  more than 300 external participants engaging with the course
+  by viewing videos and participating in discussion. No assessment/work
+  was offered to the external participants. 
+  
+\end{frame}
+
+\begin{frame}{Expanding audience - Kadenze course}
+
+  This experience led to the development of a full online
+  MIR program consisting of 3 courses offered through Kadenze Inc.
+  \url{https://www.kadenze.com/programs/music-information-retrieval}
+  The videos were recorded in the Spring of 2016 but the course was
+  finally made public in 2020.
+
+  {\bf Challenges:} contract agreement with university, privacy issues,
+  grading issues 
+  
+\end{frame} 
+
+\begin{frame}{Notebook break III}
+
+  An alternative to video recordings is providing a more complete self-contained
+  detailed notebook. The FMP (Foundations of Music Processing) notebooks are a
+  great example of such a teaching resource. Let's look at the notebook
+  for music syncronization as an example. 
+  
+\end{frame}
+
+\begin{frame}{Online Learning: Discussion/Questions}
+
+  Any thoughts/questions/discussion regarding the second module ``Online Learning'' ? (5-10 minutes) 
+  
+\end{frame}
+
+
+\section{Assessment}
+
+% degree of difficulty labeling, self-reflection, peer review
+% from model solutions to peer critiques, project scaffolding,
+%
+
+\begin{frame}{Assessment}
+
+  Assessment is a big and unavoidable challenge in teaching.
+  Ideally, assessment should be comprehensive and properly capture
+  the knowledge and ability of students in a particular topic. The more
+  multi-faceted this assessment is, the more likely it is that it will
+  correlate better with real world performance. It is important to talk
+  to students about assessment and share how difficult it is. It is also
+  important to differentiate between assessment and feedback although
+  obviously they are related. 
+
+  
+\end{frame}
+
+
+\begin{frame}{Assessment Overfitting}
+
+  Standarized assessment especially face-to-face timed exams can be
+  poor indicators of actual knowledge or performance. At the same time
+  they are less prone to academic integrity violations and perceived
+  as more objective and fair. The current trend in education research
+  is to emphasize learning outcome and well defined rubrics there is a
+  dange of putting too much effort into teaching for the assessment
+  not for the knowledge.  Motivation, curiosity, and creativity are
+  not fosted when only material that is going to be in the exam is
+  covered. I call this assessment overfitting in analogy to ML
+  overfitting. It is more likely to happen with a flipped classroom
+  style of instruction.
+
+\end{frame}
+
+\begin{frame}{Academic Integrity}
+
+  Academic integrity violations are increasing with the shift to online
+  teaching.
+
+  \begin{itemize}
+  \item{Contract cheating}
+  \item{Public code repositories (github)}
+  \item{Honest and pragmatic discussion impossible}
+  \item{Build trust and respect rather than blame}
+  \item{Copy but understand - self respect is critical}
+  \end{itemize} 
+
+\end{frame} 
+
+\begin{frame}{Degree of Difficulty (my magic bullet)}
+
+An important and fundamental challenge with assessment is calibration
+to student ability. If the tasks are too hard or too easy that
+leads to frustration. It is important to stress that each student
+is unique and has their own story. Degree of difficulty labeling
+refers to explicity labeling assessed work (exam questions, assignments,
+quizzes) and even reading materials in terms of difficulty. 
+
+\begin{itemize}
+\item{Basic ($40\%$), Expected ($50\%$), Advanced ($10\%$)}
+\end{itemize}
+  
+\end{frame}
+
+
+
+\begin{frame}{Self-reflection}
+
+  A good way to ensure personalized course work is to include
+  some self-reflection activities. These could be in the form
+  of a blog, journal, discussion board. Reading papers and code
+  and writing about what was read is another good strategy.
+  One of the challenges with self-reflection is that it takes more
+  time to grade and does not scale easily to large classes. 
+  
+\end{frame}
+
+\begin{frame}{Peer review}
+
+  Peer review is a great way to make the students take more ownership of
+  their work and learn to provide constructive feedback. It can be challenging
+  to administer in large courses. Also some institutions have restrictions on
+  using student feedback for grading. 
+
+  
+\end{frame}
+  
+\begin{frame}{From Model solution to peer exposure and review}
+
+  The classic approach for assignments is to provide a model solution.
+  A better approach is to critique (anonymous) student work and contrast
+  different possible solutions. It also useful for students to contrast
+  their work with other students especially when the assessment is subjective.
+\end{frame}
+
+\begin{frame}{Auto-grading}
+
+  Auto-grading is trivial with simple questions such as multiple choice
+  or keyword matching quizzes. However, it becomes quite more complex
+  and challenging as the deliverables get more complicated. A more
+  complex setup is to have various unit tests for a piece of code
+  (some shared with students and some withheld). My ideal situation
+  would be to have a problem generator that personalizes assignments
+  to students followed by more flexible similarity checking. For example
+  a monophonic melody could be randomly generated using samples, then
+  automatic pitch extraction could be applied, followed by comparing the
+  results with a state-of-the art pitch detectors. The similarity will
+  have to be calibrated but MIR techniques can be used for this purpose. 
+  
+\end{frame}
+
+\begin{frame}{Rubrics and feedback}
+
+A well defined rubric defines how a deliverable will be graded in a
+detailed way. It can help students, instructors, and teaching assistants
+be fair and consistent. It also can be used to provide feedback to the student
+if it is well designed. It is extremely challenging to design good rubrics.  
+  
+\end{frame}
+
+\begin{frame}{Gameification}
+
+  Awards, prizes, badges - recycling of journals, student voting 
+  
+\end{frame}
+
+
+
+
+\begin{frame}{Notebook break IV}
+
+  For assignment a effective possibility is to base them on existing
+  notebook/code resources. Let's look at a particular example for
+  monophonic pitch detection from the Kadenze program. 
+  
+\end{frame}
+
+\begin{frame}{Assessment: Discussion/Questions}
+
+  Any thoughts/questions/discussion regarding the second module ``Assessment'' ? (5-10 minutes) 
+  
+\end{frame}
+
+
+
+
+\section{Projects}
+
+\begin{frame}{Group projects}
+  The most interesting for the students and most challenging aspect
+  of teaching a MIR course is the completion of a group project. One of my
+  most satisfying experiences as a MIR teacher has been to see some of these
+  projects evolve into successful ISMIR papers. In this module, we will
+  go over some of the logistics of group projects, overview some examples,
+  and discuss instructor strategies for making them successful. 
+  
+\end{frame}
+
+
+\begin{frame}{Group formation and size}
+
+  Group projects are challenging but rewarding. Optimal group size can vary.
+  In small classes groups of 2 are feasible. Groups of 3/4 students are more
+  common with larger classes. Bigger groups might be a necessity with really
+  large classes but almost always create work balance tensions. Some ideas:
+
+  \begin{itemize}
+  \item{Random group formation}
+  \item{Student-led group formation}
+  \item{Project-based group formation}
+  \item{Multi-phase with reshuffling}
+  \item{Pre-defined roles/responsibilities}
+  \item{Trade-off between detailed specification and creative freedom}
+  \end{itemize} 
+  
+\end{frame}
+
+\begin{frame}{Project deliverables}
+  \begin{itemize}
+  \item{Design Specification $15\%$}
+  \item{Progress Report $15\%$}
+  \item{Final report $20\%$}
+  \item{Presentation/video $10\%$}
+
+    \end{itemize} 
+
+  \end{frame} 
+
+  
+\begin{frame}{Project stages}
+
+  At least one of these stages should be not trivial. With more software
+  frameworks and datasets it is easier to create more sophisticated projects. 
+
+  \begin{itemize}
+  \item{Problem specification, data collection and ground truth annotation}
+  \item{Information extraction and analysis}
+  \item{Implementation and interaction}
+  \item{Evaluation} 
+  \end{itemize} 
+  
+\end{frame}
+
+
+\begin{frame}{Example projects}
+
+  Several projects in the UVic MIR course evolved into ISMIR publications.
+  Some examples:
+  
+  \begin{itemize}
+  \item{Query-by-beatboxing - 2006}
+  \item{Stereo Panning - 2008}
+  \item{Examining DJ ordering of playlists - 2013}
+  \item{Curriculum learning for automatic chord recognition (2021)}
+    
+  \end{itemize} 
+
+  
+\end{frame} 
+
+\begin{frame}{Notebook break V}
+  Matrix factorization notebook 
+\end{frame}
+
+\begin{frame}{Projects: Discussion/Questions}
+
+  Any thoughts/questions/discussion regarding the second module ``Projects'' ? (5-10 minutes) 
+  
+\end{frame}
+
+
+
+\section{Resources}
+
+\begin{frame}{Teaching Resources}
+
+  As MIR evolves as a research field, there are more and more
+  resources such as books, overview articles, software frameworks and
+  tools, and datasets that can be used to support teaching. In this module,
+  we go over some of my personal favorites. This is by no means a comprehensive
+  list of resources but rather some representative examples from what I use
+  in my own teaching with some discussion of what I like about them. 
+
+  \end{frame} 
+
+
+\begin{frame}{Books}
+  \begin{itemize}
+    \item Fundamentals of Music Processing - Meinard Muller 
+    \item Audio content analysis - Alexander Lerch
+    \item Music Data Mining - Li, Ogihara, Tzanetakis (editors) 
+    \item Digital Signal Processing Primer - Ken Steiglitz
+    \item Music Similarity and Retrieval - Markus Schedl
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Overview papers}
+
+  Good overview papers can be a great resources for MIR students.
+  A favorite example:
+  ``Automatic chord estimation from audio: A review of the state of the art'', 2014. M McVicar, R Santos-Rodríguez, Y Ni, T De Bie
+
+  
+
+\end{frame} 
+
+\begin{frame}{MIR Software Frameworks}
+  \begin{itemize}
+  \item{Essentia}
+  \item{MIR Toolbox}
+  \item{librosa}
+  \item{Marsyas}
+  \item{Music21} 
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{MIR Task Software}
+  \begin{itemize}
+  \item{Spleeter}
+  \item{musicnn}
+  \item{madmom}
+  \item{melodia}
+  \end{itemize} 
+\end{frame}
+
+
+\begin{frame}{MIR Tools}
+  \begin{itemize}
+  \item{mirdata}
+  \item{jams}
+  \item{mireval} 
+  \end{itemize} 
+\end{frame} 
+
+
+\begin{frame}{MIR GUIs}
+  \begin{itemize}
+  \item{Sonic Visualizer/Vamp plugins}
+  \item{Audacity}
+  \item{Tony}
+  \item{DAWs such as Ableton Live, Reaper, Plugins}
+  \item{Max/MSP, PureData}
+  \item{Game Engines}
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}{Other Software}
+  \begin{itemize}
+    \item{Weka} 
+    \item{scikit-learn}
+    \item{tensorflow}
+    \item{pytorch}
+    \item{pandas,numpy,scipy}
+    \item{Juce} 
+    \end{itemize} 
+\end{frame} 
+
+
+
+\begin{frame}{Datasets}
+  \begin{itemize}
+  \item{GTZAN (historic)}
+  \item{FMA (large, medium, small)}
+  \item{Magnatagatune}
+  \item{Music4All}
+  \item{MTG-JAMENDO}
+  \item{mir\_data}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Reproducible research}
+  \begin{itemize}
+  \item{Provide code, data, plots}
+  \item{Work on multiple machines and with multiple people}
+  \item{It takes a lot of effort and time but can be worth it}
+  \item{Do not and do re-invent the wheel}
+  \item{Be part of an ecosystem}
+  \item{Open source license}
+  \item{Public source repository}
+  \item{Documentation, tutorials, examples}
+  \item{Marsyas: 581 citations, librosa: 1251 citations, scikitlearn: 47321, essentiaL: 431}
+  \end{itemize} 
+\end{frame} 
+
+\begin{frame}{Teaching Materials}
+  \begin{itemize}
+  \item{\url{https://musicinformationretrieval.com/}}
+  \item{\url{https://ismir.net/resources/tutorials/}}
+  \item{\url{https://www.audiolabs-erlangen.de/resources/MIR/FMP/C0/C0.html}}
+  \item{\url{https://www.audiocontentanalysis.org/}}
+  \end{itemize} 
+\end{frame}
+
+
+\begin{frame}{Environments}
+
+  \begin{itemize}
+  \item{Jupyter notebooks}
+  \item{Hosted environments: JupyterHub, Google Colab}
+  \item{Github}
+  \item{Overleaf}
+  \end{itemize} 
+
+  \end{frame} 
+
+\begin{frame}{Notebook break VI}
+
+  THX Logo Notebook 
+\end{frame}
+
+\begin{frame}{Resources: Discussion/Questions}
+
+  Any thoughts/questions/discussion regarding the second module ``Resources'' ? (5-10 minutes) 
+  
+\end{frame}
+
+
+
+\section{Conclusions}
+
+\begin{frame}{Conclusions}
+
+  \begin{itemize}
+  \item Teaching is a journey not just a destination
+  \item Teaching is garden not just a journey
+  \item Experiment and question assumptions
+  \item Be honest and pragmatic with students
+  \item Focus on intuition and motivation
+  \item Teaching is more about pacing and filtering and less about content delivery
+  \end{itemize} 
+\end{frame}
+  
+
+
+\setbeamercolor{bibliography item}{fg=black}
+\setbeamercolor*{bibliography entry title}{parent=palette primary}
+
+\bibliographystyle{amsalpha}
+\bibliography{dhsi_2014} 
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
