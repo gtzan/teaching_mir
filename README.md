@@ -23,6 +23,8 @@ Various materials to support the teaching of Music Information Retrieval. This m
 
 Contains the slides of the 2021 tutorial Teaching Music Information Retrieval and accompanying example notebooks 
 
+1. [Tutorial slides] (https://github.com/gtzan/teaching_mir/tutorial_materials)
+
 # Audio 
 
 Short audio examples used by the notebooks 
