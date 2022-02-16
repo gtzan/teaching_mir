@@ -6,9 +6,8 @@ Various materials to support the teaching of Music Information Retrieval. This m
 
 Contains the slides of the 2021 tutorial Teaching Music Information Retrieval and accompanying example notebooks 
 
-1. [Tutorial slides] (https://github.com/gtzan/teaching_mir/tree/main/ismir2021_teaching_mir_tutorial)
-
-
+1. [Tutorial slides] (https://github.com/gtzan/teaching_mir/blob/main/ismir2021_teaching_mir_tutorial/ismir_2021_tutorial.pdf)
+2. 
 # Online Courses 
 
 1. [Kadenze MIR Program (3 courses)](https://www.kadenze.com/programs/music-information-retrieval)
